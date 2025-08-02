@@ -14,7 +14,10 @@ function App() {
   )
 
   return (
-    <div className="min-h-screen" dir="rtl">
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-100 to-indigo-200"
+      dir="rtl"
+    >
       {/* Amazing title at the top */}
       <WowTitle title="כמה ימי חופש זה יעלה לי?" />
 
@@ -27,7 +30,7 @@ function App() {
                 htmlFor="start-date"
                 className="block text-sm font-medium text-gray-700 mb-2 text-right"
               >
-                תאריך התחלה
+                היום הראשון של החופשה
               </label>
               <input
                 id="start-date"
@@ -44,7 +47,7 @@ function App() {
                 htmlFor="end-date"
                 className="block text-sm font-medium text-gray-700 mb-2 text-right"
               >
-                תאריך סיום
+                היום האחרון של החופשה
               </label>
               <input
                 id="end-date"

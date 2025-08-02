@@ -5,10 +5,12 @@ export function classNames(...classes: unknown[]): string {
 export {
   calculateDaysBetween,
   calculateVacationDaysDetailed,
-  getWorkDayValue,
-  isWeekend,
-  isJewishHoliday,
-  isJewishHalfDay,
+  formatDayCountHebrew,
   getJewishHolidaysInRange,
-  formatDayCountHebrew
+  getWorkDayValue,
+  isJewishHalfDay,
+  isJewishHoliday,
+  isWeekend,
+  type HolidayInfo,
+  type VacationCalculation
 } from './date-utils'
