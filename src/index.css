@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RTL Support */
+[dir='rtl'] {
+  text-align: right;
+}
+
+[dir='rtl'] input[type='date'] {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Fix for number inputs and dates in RTL */
+[dir='rtl'] input[type='number'],
+[dir='rtl'] input[type='date'],
+[dir='rtl'] input[type='time'] {
+  direction: ltr;
+}
+
+/* Ensure proper text direction for Hebrew */
+.hebrew-text {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Utility classes for mixed direction content */
+.ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
