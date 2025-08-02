@@ -1,14 +1,14 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import {
   calculateDaysBetween,
   calculateVacationDays,
   calculateVacationDaysDetailed,
+  formatDayCount,
   getWorkDayValue,
-  isWorkDay,
-  isWeekend,
-  isJewishHoliday,
   isJewishHalfDay,
-  formatDayCount
+  isJewishHoliday,
+  isWeekend,
+  isWorkDay
 } from './date-utils'
 
 describe('calculateDaysBetween', () => {
@@ -58,7 +58,7 @@ describe('calculateDaysBetween', () => {
   })
 
   it('should calculate a full year correctly', () => {
-    expect(calculateDaysBetween('2024-01-01', '2024-12-31')).toBe(365) // 2024 is a leap year
+    expect(calculateDaysBetween('2024-01-01', '2024-12-31')).toBe(365) // 2024 is a leap year, but this is days between, not including both endpoints
   })
 })
 

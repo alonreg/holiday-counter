@@ -130,7 +130,7 @@ function isMajorHolidayEvent(event: Event, includeHolHamoed: boolean): boolean {
 }
 
 /**
- * Calculates the number of days between two dates (inclusive)
+ * Calculates the number of days between two dates (exclusive of start date)
  * @param startDate - The start date as a string (YYYY-MM-DD format)
  * @param endDate - The end date as a string (YYYY-MM-DD format)
  * @returns The number of days between the dates, or null if invalid
@@ -145,7 +145,7 @@ export function calculateDaysBetween(
   }
 
   const diffTime = validation.end.getTime() - validation.start.getTime()
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1 // +1 for inclusive range
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 
   return diffDays
 }
@@ -272,7 +272,9 @@ export function calculateVacationDaysDetailed(
     return null
   }
 
-  const totalDays = calculateDaysBetween(startDate, endDate) || 0
+  // For vacation calculations, we use inclusive range (both start and end dates are included)
+  const diffTime = validation.end.getTime() - validation.start.getTime()
+  const totalDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1
   const holidays = getJewishHolidaysInRange(
     startDate,
     endDate,
@@ -341,4 +343,49 @@ export function formatDayCountHebrew(days: number): string {
     default:
       return `${days} ${HEBREW_DAY_FORMATS.MANY}`
   }
+}
+
+/**
+ * Formats the day count with proper English pluralization
+ * @param days - The number of days
+ * @returns Formatted string with proper English pluralization
+ */
+export function formatDayCount(days: number): string {
+  if (days === 1) {
+    return '1 day'
+  }
+  return `${days} days`
+}
+
+/**
+ * Calculates vacation days needed for a date range
+ * @param startDate - The start date as a string (YYYY-MM-DD format)
+ * @param endDate - The end date as a string (YYYY-MM-DD format)
+ * @param includeHolHamoed - Whether to include Chol Hamoed as holidays
+ * @returns The number of vacation days needed, or null if invalid dates
+ */
+export function calculateVacationDays(
+  startDate: string,
+  endDate: string,
+  includeHolHamoed: boolean = true
+): number | null {
+  const result = calculateVacationDaysDetailed(
+    startDate,
+    endDate,
+    includeHolHamoed
+  )
+  return result ? result.vacationDaysNeeded : null
+}
+
+/**
+ * Checks if a date is a work day (not weekend, not holiday)
+ * @param date - The date to check
+ * @param includeHolHamoed - Whether to include Chol Hamoed as holidays
+ * @returns True if it's a work day, false otherwise
+ */
+export function isWorkDay(
+  date: Date,
+  includeHolHamoed: boolean = true
+): boolean {
+  return getWorkDayValue(date, includeHolHamoed) > 0
 }
